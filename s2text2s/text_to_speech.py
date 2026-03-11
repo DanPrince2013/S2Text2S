@@ -154,14 +154,15 @@ def _profile_for_character(
         return user_profiles[name]
 
     digest = int(hashlib.md5(name.encode()).hexdigest(), 16)
-    # Rate offset: ±25 WPM in steps of 5
-    rate_offset = ((digest % 11) - 5) * 5  # -25 … +25
+    # Rate offset: -25 … +25 WPM (11 values in steps of 5)
+    rate_offset = ((digest % 11) - 5) * 5
     # Volume: 0.75 … 1.0
     volume = 0.75 + ((digest >> 4) % 6) * 0.05
     # Voice index: cycle through available voices (skip index 0 = narrator default)
-    voice_index = 1 + ((digest >> 8) % max(available_voice_count, 1))
-    if voice_index >= available_voice_count:
+    if available_voice_count <= 1:
         voice_index = 0
+    else:
+        voice_index = 1 + ((digest >> 8) % (available_voice_count - 1))
 
     return VoiceProfile(rate_offset=rate_offset, volume=volume, voice_index=voice_index)
 
