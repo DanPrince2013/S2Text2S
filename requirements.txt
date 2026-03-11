@@ -1,0 +1,23 @@
+# Core audio recording
+sounddevice>=0.4.6
+numpy>=1.24.0
+scipy>=1.11.0
+
+# Speech recognition (STT)
+SpeechRecognition>=3.10.0
+
+# Text-to-speech (TTS) — Windows SAPI5
+pyttsx3>=2.90
+
+# Clipboard + text injection
+pyperclip>=1.8.2
+
+# Global hotkeys
+keyboard>=0.13.5
+
+# System-tray icon (Windows)
+pystray>=0.19.4
+Pillow>=10.0.0
+
+# Windows-specific helpers (optional — gracefully skipped on non-Windows)
+pywin32>=306; sys_platform == "win32"
